@@ -23,10 +23,23 @@ num_utts = size(W, 1);
 % Feature dimension
 fdim = size(A,1);
 
-% Implement Eq. 12 of Campbell's paper
-J = diag(W*ones(num_utts,1))-W;
+% Prepare matrix J in Campbell's paper
+i = 1; j = 1;
+while i<=num_utts,
+    n(j) = length(find(W(:,i)==1));     % n(j) contains the no. of utterances from speaker j
+    i = i + n(j);
+    j = j + 1;
+end
+J = zeros(num_utts,num_utts);
+J(1:n(1),1:n(1)) = sqrt(n(1))*(eye(n(1))-(1/n(1))*ones(n(1),1)*ones(n(1),1)');
+k = n(1);
+for j = 2:length(n),
+    J(k+1:k+n(j),k+1:k+n(j)) = sqrt(n(j))*(eye(n(j))-(1/n(j))*ones(n(j),1)*ones(n(j),1)');
+    k = k + n(j);
+end
 
-% Solve the eigen problem, i.e. finding v in Eq. 12
+% Solve the eigen problem, i.e. finding v in Eq. 13
+% [eigV, eigD] = eig(A*(diag(W*ones(num_utts,1))-W)*A');
 n_ev = min([num_proj*2 fdim-2]);            % Compute double the number of necessary eigenvectors
 if (size(A,1) > size(A,2)),
     % Feature dim > No. of vectors
