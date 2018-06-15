@@ -4,8 +4,8 @@
 % To init ARFF Matlab library in ~/so/Matlab/arff (your system may be different)
 % run('~/so/Matlab/arff/setup_arff.m');
 
-% Note: This script require weka2matlab from S. Libol. 
-% You may download the library from https://github.com/LIBOL/LIBOL/tree/master/weka2matlab
+% Note: This script require weka2matlab. 
+% You may download the library from https://www.mathworks.com/matlabcentral/fileexchange/21204-matlab-weka-interface?focused=5103451&tab=function
 % You may change the script setup_arff.m to suit your need.
 
 clear; close all;
